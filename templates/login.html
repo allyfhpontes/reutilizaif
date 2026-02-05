@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ReutilizaIF</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/icon.svg') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #fff;
+            color: #000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+        .login-container {
+            display: flex;
+            width: 100%;
+            flex: 1;
+        }
+        .left-side {
+            flex: 1;
+            background: #fff;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+            overflow: hidden;
+        }
+        .green-shape {
+            position: absolute;
+            top: -200px;
+            left: -200px;
+            width: 600px;
+            height: 600px;
+            background: #00FF88;
+            border-radius: 50%;
+            opacity: 0.9;
+        }
+        .logo-section {
+            position: absolute;
+            top: 80px;
+            left: 80px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-icon {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+        }
+        .campus-logo {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .campus-logo-img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+        }
+        .campus-text {
+            font-size: 0.85em;
+            color: #000;
+            max-width: 250px;
+            line-height: 1.3;
+        }
+        .right-side {
+            flex: 1;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 80px;
+        }
+        .welcome-text {
+            font-size: 1.8em;
+            color: #000;
+            margin-bottom: 30px;
+            font-weight: 400;
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Formulário usa componentes CSS reutilizáveis */
+        .alert {
+            padding: 12px;
+            margin-bottom: 20px;
+            background: #fff3cd;
+            color: #856404;
+            border-left: 3px solid #ffc107;
+            font-size: 0.9em;
+            border-radius: 4px;
+        }
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+            }
+            .green-shape {
+                width: 300px;
+                height: 300px;
+            }
+            .logo-section {
+                margin-left: 20px;
+                margin-top: 40px;
+            }
+            .right-side {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include 'header_public.html' %}
+    <div class="login-container">
+        <div class="left-side">
+            <div class="green-shape"></div>
+            <div class="logo-section">
+                <img src="{{ url_for('static', filename='img/icon.svg') }}" alt="ReutilizaIF" class="logo-icon">
+            </div>
+            <div class="campus-logo">
+                <img src="{{ url_for('static', filename='img/Campus Natal-Zona Norte - Logo_Color Hor Compl .png') }}" alt="Campus Logo" class="campus-logo-img" onerror="this.onerror=null; this.src='img/Campus Natal-Zona Norte - Logo_Color Hor Compl .png';">
+            </div>
+        </div>
+        
+        <div class="right-side">
+            <h1 class="welcome-text">bem vindo!</h1>
+            
+            {% if error %}
+            <div class="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+            
+            <form action="/login" method="post">
+                <div class="ui-input-group">
+                    <label for="matricula" class="ui-input-label">Matrícula</label>
+                    <input type="text" name="matricula" id="matricula" class="ui-input" required placeholder="Digite sua matrícula">
+                </div>
+
+                <div class="ui-input-group">
+                    <label for="senha" class="ui-input-label">Senha</label>
+                    <input type="password" name="senha" id="senha" class="ui-input" required placeholder="Digite sua senha">
+                </div>
+
+                <button type="submit" class="ui-btn ui-btn-primary ui-btn-full">Login</button>
+            </form>
+            
+            <p style="text-align: center; margin-top: 20px; color: #666; font-size: 0.9em;">
+                Primeira vez? Faça login com SUAP para criar sua conta
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('senha');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        }
+    </script>
+</body>
+</html>

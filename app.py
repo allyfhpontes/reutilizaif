@@ -9,7 +9,7 @@ from routes.admin import admin_bp
 
 #def create_app():
     #app = Flask(__name__)
-    def create_app():
+def create_app():
     app = Flask(_name_)
     return app
  app.config.from_object(Config)

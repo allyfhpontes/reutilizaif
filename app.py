@@ -7,9 +7,16 @@ from routes.produtos import produtos_bp
 from routes.perfil import perfil_bp
 from routes.admin import admin_bp
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object(Config)
+#def create_app():
+    #app = Flask(__name__)
+    def create_app():
+    app = Flask(_name_)
+    return app
+ app.config.from_object(Config)
+ app = create_app()
+   
+   
+app = create_app()
     
     # Inicializa extensões
     db.init_app(app)

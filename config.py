@@ -16,7 +16,7 @@ class Config:
     else:
         MYSQL_HOST = os.environ.get('MYSQL_HOST') or 'localhost'
         MYSQL_USER = os.environ.get('MYSQL_USER') or 'root'
-        MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD') or ''
+        MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD') or '123456'
         MYSQL_DATABASE = os.environ.get('MYSQL_DATABASE') or 'reutilizaif'
         SQLALCHEMY_DATABASE_URI = (
             f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DATABASE}"
